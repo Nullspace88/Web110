@@ -1,0 +1,231 @@
+
+* {
+	box-sizing: border-box;
+  }
+body 
+		{
+			background-color: white;
+			background-repeat: no-repeat;
+			color: #FFFFFF;
+			margin: 0;
+		}
+header
+		{
+			position: sticky;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 50;
+			width: 100%;
+			background-color: #0047AB; 
+			color: #FFFFFF;
+			height: 100px;
+			text-align: center;
+			padding-top: 20px;
+			text-shadow: 1px 1px 2px black;
+			font-size: 3vw;
+		}
+header a
+		{
+			color: white;
+			text-decoration: none;
+		}
+nav
+		{
+
+			background-color: #0d3f85;
+			padding: 0;
+			border: 0;
+			margin: 0;
+		}
+nav a
+		{
+			text-decoration: none;
+			color: white;
+		}
+nav ul 
+		{
+			margin: 0;
+			width: 100%;
+			padding-left: 5px;
+			font-size: 2em;
+		}
+nav li 
+		{
+			margin: 5px;
+		}
+nav a:hover
+		{
+			text-decoration: underline;
+			color: #9ec6ff;
+		}
+nav ul 	{
+			list-style-type: none;
+		}
+img
+		{
+			width: 60%;
+			height: auto;
+			margin: 10px;
+			float: right;
+		}
+br 
+		{
+			margin-bottom: 1em;
+		}
+h2
+		{
+			text-decoration: underline;
+		}
+main
+		{
+			padding-top: 	1px;
+			padding-right: 	20px;
+			padding-bottom: 20px;
+			padding-left: 	20px;
+			display: block;
+			background-color: white;
+			color: #0047AB;
+ 		}
+main a
+		{
+			color: #0047AB;
+		}
+form
+		{
+			width: 60%;
+			max-width: 30em;
+			display: grid;
+			grid-gap: 1em;
+			grid-template-columns: 6em 1fr;
+			padding: 1em;
+			margin-bottom: 40px;
+
+		}
+
+textarea
+		{
+			width: 200%;
+			height: 80%%;
+		}
+footer
+		{
+			font-style: italic;
+			font-size: .75em;
+			margin-bottom: 20px;
+		}
+.parallax 
+		{
+			background-image: url("images/code.jpg");
+			min-height: 200px;
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+.parallax2 
+		{
+			background-image: url("images/computer.jpg");
+			min-height: 200px;
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+.parallaxpayment 
+		{
+			background-image: url("images/money.jpg");
+			min-height: 200px;
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+.parallaxphone
+		{
+			background-image: url("images/phone.jpg");
+			min-height: 200px;
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+.parallaxworker
+		{
+			background-image: url("images/wires.jpg");
+			min-height: 200px;
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+.codebox
+		{
+			background-color: #EAEAEA;
+			border-radius: 10px;
+			padding-left: 10px;
+			overflow: scroll;
+
+		}
+#wrapper 
+		{
+			margin-left: auto;
+			margin-right: auto;
+		}
+#techcrit 
+		{
+			font-size: .75em;
+		}
+@media (min-width: 600px) {
+	nav {
+			position: fixed;
+			z-index: 100;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+		}
+	nav ul 
+		{
+			display: flex;
+			flex-wrap: nowrap;
+			flex-direction: row;
+			justify-content: space-around;
+			font-size: 1em;
+		}
+	nav li
+		{
+			border-right: 1px solid white;
+			padding-right: 20px;
+			border-left: 1px solid white;
+			padding-left: 20px;
+		}
+	p
+		{
+			column-count: 2;
+		}
+	textarea
+		{
+			width: 300%;
+			height: 80%;
+		}
+	header
+		{
+			font-size: 2.5vw;
+		}
+	#techcrit 
+		{
+			font-size: 1em;
+		}
+	#wrapper
+		{
+			width: 80%;
+		}
+}
+@media (min-width: 860px) {
+
+	header
+		{
+			font-size: 1.5vw;
+		}
+
+}

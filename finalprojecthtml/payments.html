@@ -1,0 +1,105 @@
+<!Doctype html>
+<html lang="en">
+	<head>
+		<title>Payments</title>
+		<link rel="icon" href="phoneicon.png" type="image/png">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="pwastyle.css" rel="stylesheet">
+	</head>
+
+	<nav>
+		<ul>
+			<li><span id="techcrit"><a href="techcrit.html">Technical Criteria</a></span></li>
+			<li><a href="serviceworker.html">Service Workers</a></li>
+			<li><a href="payments.html">Payments</a></li>
+			<li><a href="contact.html">Contact</a></li>
+		</ul>
+	</nav>
+	<header>
+			<h1><a href="index.html">Progressive Web Applications</a></h1>
+	</header>
+
+	<body>
+		<div id="wrapper">
+			<div class="parallaxpayment">
+			</div>
+			<main>
+				<h2>Payments</h2>
+				<p>With the advent of PWAs a simple Payment Request API has been developed to make payments as easy as can be. This payment API greatly reduces the friction to making payments on mobile with the ability to call Apple pay and Google pay in order to request a payment from the user. With over 60% of web traffic coming from mobile users it is likely that PWAs represent the future of payments on mobile devices by leveraging Apple and Google pay systems.<sup>1</sup> Below is a demo that shows how simple and easy it is to integrate the Payment Request API into a PWA indicating a future where payments work seamlessly for users.<sup>2</sup><br>
+
+				The code below starts by using javascript to select a button (either apple pay or card payment) that is displayed to the user. Then an object is created that contains the data needed for either apple pay or by card. Note that part of the data is specifying which cards are available for use. For apple pay a preconfigured merchant identifier is established by registering online with a developer account. In addition a couple of certificates will need to be generated for the Apple pay API.<sup>3</sup> <br>
+
+				Once the identifier has been created it can be added to the javascript object. This developer account will also establish what the merchantCapabilities field and supportedNetwork fields will have. Next there will be a javascript object for specifying the payment details which is what gets displayed to the user when being prompted for payment information. In this example it prompts the user for a payment of $0.01. Next the script checks to see if the Apple pay or card pay button is present and if so it creates an event listener that uses the Pay Request API with the information we covered to create a payment request from the user. It then shows this request to the user and awaits for the users action to save the response.</p>
+				<div class="codebox">
+<pre>
+<code>
+const applePayButton = document.querySelector('#apple-pay-button');
+const paymentButton = document.querySelector('#payment-button');
+
+const applePayMethod = {
+  supportedMethods: 'https://apple.com/apple-pay',
+  data: {
+    version: 3,
+    merchantIdentifier: 'merchant.whatpwacando.today',
+    merchantCapabilities: ['supports3DS', 'supportsCredit', 'supportsDebit'],
+    supportedNetworks: ['amex', 'discover', 'masterCard', 'visa', 'maestro'],
+    countryCode: 'US',
+  },
+};
+
+const cardMethod = {
+  supportedMethods: 'basic-card',
+  data: {
+    supportedNetworks: [
+      'visa', 'mastercard'
+    ]
+  }
+};
+
+const paymentDetails = {
+  id: 'order-123',
+  displayItems: [
+    {
+      label: 'PWA Demo Payment',
+      amount: {currency: 'USD', value: '0.01'}
+    }
+  ],
+  total: {
+    label: 'Total',
+    amount: {currency: 'USD', value: '0.01'}
+  }
+};
+
+if(applePayButton) {
+  applePayButton.addEventListener('click', async () => {
+    const request = new PaymentRequest([applePayMethod], paymentDetails);
+    const response = await request.show();
+
+    console.log(response);
+  });
+}
+
+if(paymentButton) {
+  paymentButton.addEventListener('click', async () => {
+    const request = new PaymentRequest([cardMethod], paymentDetails);
+    const response = await request.show();
+
+    console.log(response);
+  });
+}    
+</code>
+</pre>
+				</div> <!-- codebox div close -->
+				<footer>
+					1. https://explodingtopics.com/blog/mobile-internet-traffic<br>
+					2. https://whatpwacando.today/payment<br>
+					3. https://developer.apple.com/documentation/applepaywebmerchantregistrationapi/registering-with-apple-pay-and-applying-to-use-the-api
+				</footer>
+			</main>
+
+			<div class="parallaxpayment">
+			</div>
+		</div> <!-- close the wrapper div -->
+	</body>
+</html>

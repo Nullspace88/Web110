@@ -1,0 +1,144 @@
+<!Doctype html>
+<html lang="en">
+	<head>
+		<title>Technical Criteria</title>
+		<link rel="icon" href="phoneicon.png" type="image/png">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="pwastyle.css" rel="stylesheet">
+	</head>
+
+	<nav>
+		<ul>
+			<li><span id="techcrit"><a href="techcrit.html">Technical Criteria</a></span></li>
+			<li><a href="serviceworker.html">Service Workers</a></li>
+			<li><a href="payments.html">Payments</a></li>
+			<li><a href="contact.html">Contact</a></li>
+		</ul>
+	</nav>
+	<header>
+		<h1><a href="index.html">Progressive Web Applications</a></h1>
+	</header>
+
+	<body>
+		<div id="wrapper">
+			<div class="parallax2">
+			</div>
+
+			<main>
+				<h2>Technical Criteria</h2>
+					There are a few criteria needed for a site to be considered a PWA. This criteria was outlined by Alex Russell in a 2016 article.<sup>1</sup> The criteria is as follows:<br>
+					<ul>
+						<li>
+							Should load instantly, regardless of network state. They don't have to function fully offline but need a baseline UI.
+						</li>
+						<li>
+							Should be tied in the user's mind to where they came from. Don't obscure the origin of the app.
+						</li>
+						<li>
+							Can run without extra brower chrome (e.g. the URL bar).
+						</li>
+						<li>
+							Originate form a Secure Origin served over TLS, served by HTTPS
+						</li>
+						<li>
+							Load while offline, this means the PWA requires Service Workers with a fetch handler
+						</li>
+						<li>
+							Reference a Web App Manifest file
+						</li>
+					</ul>
+				<h3>Good to Haves</h3>
+					<ul>
+						<li>Mobile-friendly design, PWAs should work well across varying screen specifications</li>
+						<li>Near-instant loading, PWAs should load in less than 5 seconds before a Service Worker is installed, once installed they should load in less than 2 seconds</li>
+						<li>Work across devices & browsers, progressive enhancement is ideal</li>
+						<li>Fluid animations</li>
+						<li>Be mobile friendly, not mobile only</li>
+						<li>Implement high quality UI/UX</li>
+						<li>Communicate offline state appropriately</li>
+						<li>Thoughtout push notifications and background sync</li>
+						<li>Contextual introduction of permission requests</li>
+					</ul>
+				<h3>Examples:</h3>
+				<h4>Manifest file</h4>
+				Manifest files require the following properties: name/short_name, start_url, display, icons (with a 192px and a 512px version).<sup>2</sup> The purpose of a manifest file is to let the host operating system know about the app that is using it. As it is demonstrated in the example below the manifest file can have additional fields to the minimum required fields. The required properties are what is needed for the operating system to make it into an app for the system. 
+				<div class="codebox">
+<pre>
+<code>
+{
+    "lang": "en-us",
+    "name": "Temperature converter app",
+    "short_name": "Temperature converter",
+    "description": "A basic temperature converter application that can convert to and from Celsius, Kelvin, and Fahrenheit",
+    "start_url": "/",
+    "background_color": "#2f3d58",
+    "theme_color": "#2f3d58",
+    "orientation": "any",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/icon512.png",
+            "sizes": "512x512"
+        }
+    ]
+}
+</code>
+</pre>
+				</div> <!-- codebox div close -->
+
+				<h4>Service Worker</h4>
+				Here is a service worker provided from the same example.<sup>2</sup> The purpose of a service worker is to detail what app resources should be saved for use locally and when the app is offline. The service workers also work to check when resources are requested from the server to see if the resources are already cached on the device. If that is the case the service workers will avoid the network call and use the resources on hand.
+				<div class="codebox">
+<pre>
+<code>
+const CACHE_NAME = `temperature-converter-v1`;
+
+// Use the install event to pre-cache all initial resources.
+self.addEventListener('install', event => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    cache.addAll([
+      '/',
+      '/converter.js',
+      '/converter.css'
+    ]);
+  })());
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+
+    // Get the resource from the cache.
+    const cachedResponse = await cache.match(event.request);
+    if (cachedResponse) {
+      return cachedResponse;
+    } else {
+        try {
+          // If the resource was not in the cache, try the network.
+          const fetchResponse = await fetch(event.request);
+
+          // Save the resource in the cache and return it.
+          cache.put(event.request, fetchResponse.clone());
+          return fetchResponse;
+        } catch (e) {
+          // The network failed.
+        }
+    }
+  })());
+});
+</code>
+</pre>
+				</div> <!-- codebox div close -->
+				<footer>
+					1. https://infrequently.org/2016/09/what-exactly-makes-something-a-progressive-web-app<br>
+					2. https://learn.microsoft.com/en-us/microsoft-edge/progressive-web-apps-chromium/how-to
+				</footer>
+
+				<div class="parallax2">
+				</div>
+			</main>
+		</div> <!-- close the wrapper div -->
+	</body>
+</html>

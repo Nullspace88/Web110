@@ -1,0 +1,56 @@
+<!Doctype html>
+<html lang="en">
+	<head>
+		<title>Service Worker</title>
+		<link rel="icon" href="phoneicon.png" type="image/png">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="pwastyle.css" rel="stylesheet">
+	</head>
+
+	<nav>
+		<ul>
+			<li><span id="techcrit"><a href="techcrit.html">Technical Criteria</a></span></li>
+			<li><a href="serviceworker.html">Service Workers</a></li>
+			<li><a href="payments.html">Payments</a></li>
+			<li><a href="contact.html">Contact</a></li>
+		</ul>
+	</nav>
+	<header>
+		<h1><a href="index.html">Progressive Web Applications</a></h1>
+	</header>
+
+	<body>
+		<div id="wrapper">
+			<div class="parallaxworker">
+			</div>
+
+			<main>
+				<img src="images/serviceworker.png" alt="a picture of the service worker architecture"><br>
+				<caption>A service worker is a proxy between your PWA and the server<sup>1</sup></caption>
+				<h2>Service Workers</h2>
+				Service workers are the functional part of the app that caches resources of the app. Depending on the situation the service worker will interpret an app request and determine whether or not to use the cached resources or serve it from the network. If the app is offline it will default to serving cached resources. Service workers must first be registered before they can function. The app must first check to make sure the browser supports the Service Worker API before it can be registered.<sup>1</sup> 
+
+				<h3>Lifecycle</h3>
+				<p>
+					As previously mentioned one of the first parts of the lifecycle for service workers is registration. If the browser is successful in parsing the service worker file the install event is activated. This installation will happen regardless if the PWA itself is installed. Browsers that don't support PWA installation, like Safari and Firefox, still support the Service Worker API.<br>
+				
+				
+					After installation the service worker is activated before it can control its clients. When it is ready the activate event will fire. The activated service worker won't have control until the next time that page is loaded or the PWA is opened.<br>
+				
+				
+					The next step is updating a service worker. This occurs when the browser detects a difference from the service worker controlling the client and a new version of the service worker file. Next the new service worker is in a waiting state until the old service worker gives up control of the app.This process ensures there is only one active service worker.<br> 
+
+					Service workers start running when a network call is sent in its scope or receives a triggering event like a background sync or a push message. Service workers terminate when they have been busy for too long. Service workers run on their own thread and is controlled by the browser. This thread is different from the PWA's main thread. 
+				</p>
+
+				<footer>
+					1. https://web.dev/learn/pwa/service-workers
+				</footer>
+			</main>
+
+			<div class="parallaxworker">
+			</div>
+		</div> <!-- close the wrapper div -->
+	</body>
+</html>
